@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f6d365">
+    <meta name="description" content="Modern weather app with real-time weather data">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Aditya Weather App">
+
+    <title>Aditya Weather App</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Dynamic Background Container -->
+    <div class="background-container" id="backgroundContainer"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <h1 class="app-title">
+                <i class="fas fa-cloud-sun"></i>
+                Aditya Weather App
+            </h1>
+
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" id="cityInput" placeholder="Search for a city..." autocomplete="off">
+                    <button id="searchBtn" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <!-- Get Current Location Button -->
+                <button id="locationBtn" class="location-btn" title="Use my location">
+                    <i class="fas fa-location-crosshairs"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Loading Animation -->
+        <div class="loading-container" id="loadingContainer">
+            <div class="loading-spinner"></div>
+            <p>Loading weather data...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-circle"></i>
+            <p id="errorText">City not found. Please try again.</p>
+        </div>
+
+        <!-- Weather Display -->
+        <main class="weather-container" id="weatherContainer">
+            <!-- Current Weather Section -->
+            <div class="current-weather">
+                <!-- Weather Icon -->
+                <div class="weather-icon-container" id="weatherIconContainer">
+                    <i class="fas fa-sun weather-icon"></i>
+                </div>
+
+                <!-- Weather Info -->
+                <div class="weather-info">
+                    <h2 class="city-name" id="cityName">Loading...</h2>
+                    <p class="country" id="country"></p>
+                    <p class="date-time" id="dateTime"></p>
+                </div>
+
+                <!-- Temperature Section -->
+                <div class="temperature-section">
+                    <h1 class="temperature" id="temperature">--°C</h1>
+                    <p class="weather-description" id="weatherDescription">Loading...</p>
+                    <button class="temp-toggle" id="tempToggle">°F</button>
+                </div>
+            </div>
+
+            <!-- Weather Details Cards -->
+            <div class="weather-details">
+                <!-- Feels Like Card -->
+                <div class="detail-card">
+                    <i class="fas fa-temperature-high"></i>
+                    <div class="detail-info">
+                        <p class="detail-label">Feels Like</p>
+                        <p class="detail-value" id="feelsLike">--°C</p>
+                    </div>
+                </div>
+
+                <!-- Humidity Card -->
+                <div class="detail-card">
+                    <i class="fas fa-tint"></i>
+                    <div class="detail-info">
+                        <p class="detail-label">Humidity</p>
+                        <p class="detail-value" id="humidity">--%</p>
+                    </div>
+                </div>
+
+                <!-- Wind Speed Card -->
+                <div class="detail-card">
+                    <i class="fas fa-wind"></i>
+                    <div class="detail-info">
+                        <p class="detail-label">Wind Speed</p>
+                        <p class="detail-value" id="windSpeed">-- km/h</p>
+                    </div>
+                </div>
+
+                <!-- Visibility Card -->
+                <div class="detail-card">
+                    <i class="fas fa-eye"></i>
+                    <div class="detail-info">
+                        <p class="detail-label">Visibility</p>
+                        <p class="detail-value" id="visibility">-- km</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="script.js"></script>
+</body>
+
+</html>

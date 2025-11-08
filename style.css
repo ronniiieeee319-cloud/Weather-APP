@@ -1,0 +1,566 @@
+/* ===================================
+   CSS Variables for Color Themes
+   =================================== */
+:root {
+    --sunny-start: #f6d365;
+    --sunny-end: #fda085;
+    --rainy-start: #4facfe;
+    --rainy-end: #00f2fe;
+    --cloudy-start: #d7d2cc;
+    --cloudy-end: #304352;
+    --snowy-start: #e6f7ff;
+    --snowy-end: #b3e5fc;
+    --clear-start: #56ccf2;
+    --clear-end: #2f80ed;
+    --thunder-start: #283048;
+    --thunder-end: #859398;
+    --mist-start: #bdc3c7;
+    --mist-end: #2c3e50;
+}
+
+/* ===================================
+   Global Reset and Base Styles
+   =================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ===================================
+   Dynamic Background Container
+   =================================== */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--clear-start), var(--clear-end));
+    transition: background 0.5s ease;
+    z-index: -1;
+}
+
+/* Background variations for different weather conditions */
+.background-container.clear,
+.background-container.sunny {
+    background: linear-gradient(135deg, var(--sunny-start), var(--sunny-end));
+}
+
+.background-container.rain,
+.background-container.drizzle {
+    background: linear-gradient(135deg, var(--rainy-start), var(--rainy-end));
+}
+
+.background-container.clouds {
+    background: linear-gradient(135deg, var(--cloudy-start), var(--cloudy-end));
+}
+
+.background-container.snow {
+    background: linear-gradient(135deg, var(--snowy-start), var(--snowy-end));
+}
+
+.background-container.thunderstorm {
+    background: linear-gradient(135deg, var(--thunder-start), var(--thunder-end));
+}
+
+.background-container.mist,
+.background-container.fog,
+.background-container.haze {
+    background: linear-gradient(135deg, var(--mist-start), var(--mist-end));
+}
+
+/* ===================================
+   Main Container
+   =================================== */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ===================================
+   Header Section
+   =================================== */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.app-title {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* ===================================
+   Search Section
+   =================================== */
+.search-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    display: flex;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 5px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#cityInput {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 15px 20px;
+    font-size: 1rem;
+    color: white;
+    outline: none;
+}
+
+#cityInput::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-btn,
+.location-btn {
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.search-btn:hover,
+.location-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+.location-btn {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ===================================
+   Loading Animation
+   =================================== */
+.loading-container {
+    display: none;
+    text-align: center;
+    padding: 50px;
+    color: white;
+}
+
+.loading-container.active {
+    display: block;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top: 5px solid white;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===================================
+   Error Message
+   =================================== */
+.error-message {
+    display: none;
+    background: rgba(255, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.error-message.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.error-message i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* ===================================
+   Weather Container
+   =================================== */
+.weather-container {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.weather-container.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================================
+   Current Weather Section
+   =================================== */
+.current-weather {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding: 40px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    align-items: center;
+}
+
+/* ===================================
+   Weather Icon Animations
+   =================================== */
+.weather-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.weather-icon {
+    font-size: 6rem;
+    color: white;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+}
+
+/* Rotating sun animation */
+.weather-icon.fa-sun {
+    animation: rotateSun 20s linear infinite;
+}
+
+@keyframes rotateSun {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Bouncing rain animation */
+.weather-icon.fa-cloud-rain,
+.weather-icon.fa-cloud-showers-heavy {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Floating cloud animation */
+.weather-icon.fa-cloud {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(10px);
+    }
+}
+
+/* Spinning snowflake animation */
+.weather-icon.fa-snowflake {
+    animation: spin 3s linear infinite;
+}
+
+/* Flashing lightning animation */
+.weather-icon.fa-bolt,
+.weather-icon.fa-cloud-bolt {
+    animation: flash 2s ease-in-out infinite;
+}
+
+@keyframes flash {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Pulsing fog animation */
+.weather-icon.fa-smog {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+/* ===================================
+   Weather Information
+   =================================== */
+.weather-info {
+    text-align: center;
+}
+
+.city-name {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.country {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.date-time {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+/* ===================================
+   Temperature Section
+   =================================== */
+.temperature-section {
+    text-align: center;
+    position: relative;
+}
+
+.temperature {
+    font-size: 4rem;
+    color: white;
+    font-weight: 300;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.weather-description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.3rem;
+    margin-top: 10px;
+    text-transform: capitalize;
+}
+
+.temp-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 10px;
+    padding: 8px 12px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.temp-toggle:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+/* ===================================
+   Weather Details Cards
+   =================================== */
+.weather-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.detail-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.detail-card:hover {
+    transform: translateY(-5px);
+}
+
+.detail-card i {
+    font-size: 2.5rem;
+    color: white;
+    opacity: 0.9;
+}
+
+.detail-info {
+    flex: 1;
+}
+
+.detail-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.detail-value {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* ===================================
+   Responsive Design - Tablet
+   =================================== */
+@media (max-width: 768px) {
+    .app-title {
+        font-size: 2rem;
+    }
+
+    .current-weather {
+        grid-template-columns: 1fr;
+        padding: 30px 20px;
+        text-align: center;
+    }
+
+    .temperature {
+        font-size: 3rem;
+    }
+
+    .weather-icon {
+        font-size: 5rem;
+    }
+
+    .weather-details {
+        grid-template-columns: 1fr;
+    }
+
+    .temp-toggle {
+        position: static;
+        margin-top: 10px;
+        display: inline-block;
+    }
+}
+
+/* ===================================
+   Responsive Design - Mobile
+   =================================== */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+
+    .app-title {
+        font-size: 1.5rem;
+        gap: 10px;
+    }
+
+    .city-name {
+        font-size: 1.5rem;
+    }
+
+    .temperature {
+        font-size: 2.5rem;
+    }
+
+    .weather-icon {
+        font-size: 4rem;
+    }
+
+    .detail-card {
+        padding: 20px;
+    }
+
+    .detail-card i {
+        font-size: 2rem;
+    }
+
+    .detail-value {
+        font-size: 1.2rem;
+    }
+}
